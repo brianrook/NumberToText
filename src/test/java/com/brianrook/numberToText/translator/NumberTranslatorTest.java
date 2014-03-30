@@ -1,4 +1,4 @@
-package com.brianrook.translator;
+package com.brianrook.numberToText.translator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
