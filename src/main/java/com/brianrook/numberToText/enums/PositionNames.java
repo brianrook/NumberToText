@@ -1,4 +1,4 @@
-package com.brianrook.enums;
+package com.brianrook.numberToText.enums;
 
 public enum PositionNames {
 	HUNDRED(0, "number.hundred"),

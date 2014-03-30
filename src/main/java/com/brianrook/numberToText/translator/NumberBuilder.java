@@ -1,4 +1,4 @@
-package com.brianrook.translator.numberToText.translator;
+package com.brianrook.numberToText.translator;
 
 import java.math.BigDecimal;
 import java.util.List;

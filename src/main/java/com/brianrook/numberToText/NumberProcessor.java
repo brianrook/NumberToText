@@ -8,8 +8,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.brianrook.numberToText.exception.InvalidNumberException;
-import com.brianrook.translator.numberToText.translator.NumberBuilder;
-import com.brianrook.translator.numberToText.translator.NumberCleaner;
+import com.brianrook.numberToText.translator.NumberBuilder;
+import com.brianrook.numberToText.translator.NumberCleaner;
 
 @Component
 @PropertySource("nameKey.properties")

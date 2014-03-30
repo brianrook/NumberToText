@@ -1,4 +1,4 @@
-package com.brianrook.translator.numberToText.translator;
+package com.brianrook.numberToText.translator;
 
 import org.springframework.util.StringUtils;
 

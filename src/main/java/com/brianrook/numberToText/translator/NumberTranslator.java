@@ -1,11 +1,11 @@
-package com.brianrook.translator.numberToText.translator;
+package com.brianrook.numberToText.translator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import com.brianrook.enums.NumberNames;
-import com.brianrook.enums.PositionNames;
+import com.brianrook.numberToText.enums.NumberNames;
+import com.brianrook.numberToText.enums.PositionNames;
 
 @Component
 @PropertySource("nameKey.properties")
