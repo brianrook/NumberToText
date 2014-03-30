@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.brianrook.translator.numberToText.translator.NumberCleaner;
+import com.brianrook.numberToText.translator.NumberCleaner;
 
 public class NumberCleanerTest {
 

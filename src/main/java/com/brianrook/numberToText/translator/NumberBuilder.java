@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.brianrook.numberToText.chunker.NumberChunker;
+import com.brianrook.numberToText.exception.InvalidNumberException;
 
 @Component
 public class NumberBuilder {
@@ -73,21 +74,31 @@ public class NumberBuilder {
 		return chunkStr.toString();
 	}
 
-	public String processNumber(String num) {
+	public String processNumber(String num) throws InvalidNumberException {
 		StringBuffer returnText = new StringBuffer();
 		List<String> chunkList = NumberChunker.getChunks(num);
 		// start creating text from chunks
 		for (int i = chunkList.size() - 1; i >= 0; i--) {
 			String thisChunk = chunkList.get(i);
-			if (StringUtils.isNotEmpty(returnText.toString())) {
-				// apply space if we are appending
-				returnText.append(StringUtils.SPACE);
+
+			String text = processChunk(thisChunk);
+			if (StringUtils.isNotEmpty(text)) {
+				if (StringUtils.isNotEmpty(returnText.toString())) {
+					// apply space if we are appending
+					returnText.append(StringUtils.SPACE);
+				}
+				returnText.append(processChunk(thisChunk));
+				if (i > 0) {
+					returnText.append(StringUtils.SPACE);
+					String posName = numTrans.getPositionName(i);
+					if (StringUtils.isEmpty(posName)) {
+						throw new InvalidNumberException(
+								"Position name not found.  Number may be too big to process.");
+					}
+					returnText.append(posName);
+				}
 			}
-			returnText.append(processChunk(thisChunk));
-			if (i > 0) {
-				returnText.append(StringUtils.SPACE);
-				returnText.append(numTrans.getPositionName(i));
-			}
+
 		}
 		// got in some text, which should be a number, but we didn't get a text
 		// representation. This should be Zero.
@@ -103,13 +114,13 @@ public class NumberBuilder {
 		StringBuffer returnStr = new StringBuffer();
 		if (StringUtils.isNotEmpty(num)) {
 			BigDecimal convertNum = new BigDecimal(num);
-			convertNum = convertNum.setScale(2, BigDecimal.ROUND_HALF_UP);
+			convertNum = convertNum.setScale(2, BigDecimal.ROUND_DOWN);
 			int denominator = (int) Math.pow(10, convertNum.scale());
 			convertNum = convertNum.movePointRight(convertNum.scale());
 			int numerator = convertNum.toBigInteger().intValue();
 
-			returnStr.append(StringUtils.leftPad(Integer.toString(numerator), 2,
-					"0"));
+			returnStr.append(StringUtils.leftPad(Integer.toString(numerator),
+					2, "0"));
 			returnStr.append("/");
 			returnStr.append(denominator);
 		}

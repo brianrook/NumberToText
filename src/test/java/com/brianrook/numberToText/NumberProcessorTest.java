@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.brianrook.numberToText.exception.InvalidNumberException;
-import com.brianrook.translator.numberToText.translator.NumberBuilder;
+import com.brianrook.numberToText.translator.NumberBuilder;
 
 @ContextConfiguration({ "classpath:spring/numberToText.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,5 +66,12 @@ public class NumberProcessorTest {
 				"Two thousand five hundred twenty-three and 04/100 dollars",
 				returnText);
 
+	}
+	
+	@Test
+	public void testProcessNumber6() throws InvalidNumberException {
+		String num = "1000015";
+		String text = numProc.numberToText(num);
+		assertEquals("One million fifteen dollars", text);
 	}
 }

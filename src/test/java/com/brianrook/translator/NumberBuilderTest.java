@@ -1,6 +1,7 @@
 package com.brianrook.translator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.brianrook.translator.numberToText.translator.NumberBuilder;
+import com.brianrook.numberToText.exception.InvalidNumberException;
+import com.brianrook.numberToText.translator.NumberBuilder;
 
 @ContextConfiguration({ "classpath:spring/numberToText.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -136,47 +138,60 @@ public class NumberBuilderTest {
 	}
 
 	@Test
-	public void testProcessNumber() {
+	public void testProcessNumber() throws InvalidNumberException {
 		String num = "1105";
 		String text = numBuild.processNumber(num);
 		assertEquals("one thousand one hundred five", text);
 	}
 
 	@Test
-	public void testProcessNumber1() {
+	public void testProcessNumber1() throws InvalidNumberException {
 		String num = "23110";
 		String text = numBuild.processNumber(num);
 		assertEquals("twenty-three thousand one hundred ten", text);
 	}
 
 	@Test
-	public void testProcessNumber2() {
+	public void testProcessNumber2() throws InvalidNumberException {
 		String num = "513015";
 		String text = numBuild.processNumber(num);
 		assertEquals("five hundred thirteen thousand fifteen", text);
 	}
 
 	@Test
-	public void testProcessNumber3() {
+	public void testProcessNumber3() throws InvalidNumberException {
 		String num = "1012023";
 		String text = numBuild.processNumber(num);
 		assertEquals("one million twelve thousand twenty-three", text);
 	}
 
 	@Test
-	public void testProcessNumber4() {
+	public void testProcessNumber4() throws InvalidNumberException {
 		String num = "10001660";
 		String text = numBuild.processNumber(num);
 		assertEquals("ten million one thousand six hundred sixty", text);
 	}
 
 	@Test
-	public void testProcessNumber5() {
+	public void testProcessNumber5() throws InvalidNumberException {
 		String num = "1115909384";
 		String text = numBuild.processNumber(num);
 		assertEquals(
 				"one billion one hundred fifteen million nine hundred nine thousand three hundred eighty-four",
 				text);
+	}
+
+	@Test
+	public void testProcessNumber6() throws InvalidNumberException {
+		String num = "1000015";
+		String text = numBuild.processNumber(num);
+		assertEquals("one million fifteen", text);
+	}
+	@Test(expected = InvalidNumberException.class)
+	public void testProcessNumber7() throws InvalidNumberException {
+		String num = "123123123123123123";
+		String text = numBuild.processNumber(num);
+		fail("expected exception");
 	}
 
 	@Test
