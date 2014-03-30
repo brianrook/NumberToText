@@ -11,9 +11,14 @@ import com.brianrook.numberToText.exception.InvalidNumberException;
 import com.brianrook.numberToText.translator.NumberBuilder;
 import com.brianrook.numberToText.translator.NumberCleaner;
 
+/**
+ * The main implementation class for the number processor
+ * @author B.Rook
+ *
+ */
 @Component
 @PropertySource("nameKey.properties")
-public class NumberProcessor {
+public class NumberProcessor implements NumberProcessorInterface {
 	private static final String CURRENCY_KEY = "currency";
 	@Autowired
 	NumberBuilder numBuilder;
@@ -24,6 +29,9 @@ public class NumberProcessor {
 		return environment.getProperty(CURRENCY_KEY);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.brianrook.numberToText.NumberProcessorInterface#numberToText(java.lang.String)
+	 */
 	public String numberToText(String number) throws InvalidNumberException {
 		String returnText = null;
 		// clean input text

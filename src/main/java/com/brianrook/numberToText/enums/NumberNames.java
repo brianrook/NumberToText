@@ -1,6 +1,5 @@
 package com.brianrook.numberToText.enums;
 
-
 /**
  * Class used to store the names of numbers
  * 
@@ -81,12 +80,19 @@ public enum NumberNames {
 		return nameKey;
 	}
 
+	/**
+	 * retrieve the key for a number.
+	 * 
+	 * @param num
+	 *            the number to retrieve the key for
+	 * @return the key of the string from the properties file
+	 */
 	public static String findWord(final int num) {
 		String out = "";
 		for (NumberNames thisNumber : values()) {
 			if (num == thisNumber.getIntValue()) {
 				out = thisNumber.getNameKey();
-				
+
 				break;
 			}
 		}

@@ -6,8 +6,21 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Converts the number into chunks that can be used to create the text message.
+ * 
+ * @author B.Rook
+ * 
+ */
 public class NumberChunker {
 
+	/**
+	 * Convert a string into a series of 3 digit chunks
+	 * 
+	 * @param num
+	 *            the string of the number
+	 * @return a list of chunks
+	 */
 	public static List<String> getChunks(String num) {
 		char[] numArray = num.toCharArray();
 		List<String> returnList = new ArrayList<String>();
@@ -17,6 +30,13 @@ public class NumberChunker {
 		return returnList;
 	}
 
+	/**
+	 * Determine where in the string the chunks reside.
+	 * 
+	 * @param len
+	 *            the length of the string
+	 * @return a list of chunk start/end locations
+	 */
 	public static List<Integer> findChunkIndex(final int len) {
 		List<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < len; i++) {
@@ -28,6 +48,15 @@ public class NumberChunker {
 		return list;
 	}
 
+	/**
+	 * Use the indexes to create the list of chunks
+	 * 
+	 * @param indexes
+	 *            the start/end locations of the chunks
+	 * @param num
+	 *            the string of the number
+	 * @return a list of chunks
+	 */
 	public static List<String> getChunksFromIndex(List<Integer> indexes,
 			String num) {
 		int numLength = num.length();

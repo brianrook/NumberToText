@@ -16,7 +16,7 @@ import com.brianrook.numberToText.translator.NumberBuilder;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class NumberProcessorTest {
 	@Autowired
-	NumberProcessor numProc;
+	NumberProcessorInterface numProc;
 
 	@Test(expected = InvalidNumberException.class)
 	public void testNumberProcessor() throws InvalidNumberException {

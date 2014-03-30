@@ -10,11 +10,25 @@ import org.springframework.stereotype.Component;
 import com.brianrook.numberToText.chunker.NumberChunker;
 import com.brianrook.numberToText.exception.InvalidNumberException;
 
+/**
+ * Builds the text representation of the number.
+ * 
+ * @author B.Rook
+ * 
+ */
 @Component
 public class NumberBuilder {
 	@Autowired
 	NumberTranslator numTrans;
 
+	/**
+	 * Builds the text representation of a number from 000-999 (known as a
+	 * chunk)
+	 * 
+	 * @param num
+	 *            the chunk to process
+	 * @return the text representation of the chunk
+	 */
 	public String processHundred(String num) {
 		String firstPosition = StringUtils.substring(num, 0, 1);
 		Integer firstVal = Integer.parseInt(firstPosition);
@@ -27,6 +41,13 @@ public class NumberBuilder {
 		return value.toString();
 	}
 
+	/**
+	 * Creates the text representation of the ten/single position
+	 * 
+	 * @param num
+	 *            the chunk to process
+	 * @return a text representation of the ten/single position
+	 */
 	public String processTens(String num) {
 		String secondPosition = StringUtils.substring(num, 1, 2);
 		StringBuffer value = new StringBuffer();
@@ -52,6 +73,13 @@ public class NumberBuilder {
 		return value.toString();
 	}
 
+	/**
+	 * creates a text reprentation of the singles position
+	 * 
+	 * @param num
+	 *            the chunk to process
+	 * @return a text representation of the single position
+	 */
 	public String processSingle(String num) {
 		Integer singleVal = Integer.parseInt(StringUtils.substring(num, 2));
 		StringBuffer value = new StringBuffer();
@@ -61,6 +89,13 @@ public class NumberBuilder {
 		return value.toString();
 	}
 
+	/**
+	 * Process a chunk evaluating the hundreds and tens/single position
+	 * 
+	 * @param num
+	 *            the chunk
+	 * @return text representation of the chunk
+	 */
 	public String processChunk(String num) {
 		StringBuffer chunkStr = new StringBuffer(processHundred(num));
 		String tens = processTens(num);
@@ -74,6 +109,15 @@ public class NumberBuilder {
 		return chunkStr.toString();
 	}
 
+	/**
+	 * Create a text representation of a number. Creates chunks which are
+	 * processed and adds positional information
+	 * 
+	 * @param num
+	 *            the string to process
+	 * @return a text representation of the string
+	 * @throws InvalidNumberException
+	 */
 	public String processNumber(String num) throws InvalidNumberException {
 		StringBuffer returnText = new StringBuffer();
 		List<String> chunkList = NumberChunker.getChunks(num);
@@ -108,6 +152,14 @@ public class NumberBuilder {
 		return returnText.toString();
 	}
 
+	/**
+	 * Process decimal position of the number. Converts to fractions of /100.
+	 * Rounds smaller than 100s down
+	 * 
+	 * @param num
+	 *            the decimal portion of the number (.XXX)
+	 * @return a text representation of the decimal portion
+	 */
 	// from
 	// http://stackoverflow.com/questions/14014158/double-to-fraction-in-java
 	public String processDecimal(String num) {

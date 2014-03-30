@@ -16,7 +16,7 @@ public class NumberToTextInputRunner {
 	public static void main(String[] args) {
 		ApplicationContext appContext = new ClassPathXmlApplicationContext(
 				"spring/numberToText.xml");
-		NumberProcessor proc = (NumberProcessor) appContext
+		NumberProcessorInterface proc = (NumberProcessorInterface) appContext
 				.getBean("numberProcessor");
 
 		String output;
