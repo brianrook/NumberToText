@@ -25,7 +25,7 @@ public class NumberToTextInputRunner {
 
 			try {
 				Scanner reader = new Scanner(System.in);
-				System.out.println("Enter the number");
+				System.out.println("Enter the number (type \"end\" to quit)");
 				input = reader.next();
 				if ("end".equals(input)) {
 					break;
