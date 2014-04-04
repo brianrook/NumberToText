@@ -26,3 +26,7 @@ example:
 -----
 (input/output to enter multiple numbers)
 ./numberToTextInput
+
+=====
+Inspiration for this project was based on this sourceforge project
+http://sourceforge.net/projects/numberreader/
